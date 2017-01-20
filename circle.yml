@@ -1,0 +1,30 @@
+machine:
+  environment:
+    TERRAFORM_VER: 0.7.0
+
+dependencies:
+  pre:
+    - sudo pip install awscli
+    - make -f cmd.mk env
+
+# dependencies:
+#   override:
+#     - |
+#       if [[ ! -f ~/bin/terraform ]]; then
+#         mkdir -p tmp
+#         cd tmp
+#         curl -L "https://releases.hashicorp.com/terraform/${TERRAFORM_VER}/terraform_${TERRAFORM_VER}_linux_amd64.zip" -o terraform.zip
+#         unzip *.zip
+#         mv terraform ~/bin/
+#       fi
+#   cache_directories:
+#     - ~/bin
+# test:
+#   override:
+#     - terraform plan
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - make create

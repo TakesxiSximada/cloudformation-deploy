@@ -27,4 +27,4 @@ deployment:
   production:
     branch: master
     commands:
-      - make create
+      - make update

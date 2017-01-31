@@ -22,11 +22,11 @@ dependencies:
 #     - ~/bin
 test:
   override:
-    - aws cloudformation validate-stack --template-body file://a.json
+    - aws cloudformation validate-stack --template-body file://vpc.yml
 
 
 deployment:
   production:
     branch: master
     commands:
-      - aws cloudformation update-stack --stack-name cloudformation-deploy --template-body file://a.json
+      - aws cloudformation update-stack --stack-name cloudformation-deploy --template-body file://vpc.yml

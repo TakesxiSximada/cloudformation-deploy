@@ -4,10 +4,6 @@
     "S3B4KHTH": {
       "Type": "AWS::S3::Bucket",
       "Properties": {}
-    },
-    "S3B4KHTH2": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {}
     }
   }
 }

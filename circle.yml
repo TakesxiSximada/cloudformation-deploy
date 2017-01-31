@@ -29,4 +29,10 @@ deployment:
   production:
     branch: master
     commands:
+      - aws cloudformation create-change-set --stack-name cloudformation-deploy --template-body file://vpc.yml --change-set-name=`git show --quiet --pretty=format:"%H"`
+      - aws cloudformation describe-change-set --stack-name cloudformation-deploy --change-set-name=`git show --quiet --pretty=format:"%H"`
+      - aws cloudformation execute-change-set --stack-name cloudformation-deploy --change-set-name=`git show --quiet --pretty=format:"%H"`
+  staging:
+    branch: staging
+    commands:
       - aws cloudformation update-stack --stack-name cloudformation-deploy --template-body file://vpc.yml

@@ -9,6 +9,7 @@ REQUIREMENTS := $(CURDIR)/requirements.txt
 WHEEL_DIR := $(CURDIR)/wheelhouse
 ENVIRON_DIR := $(CURDIR)/environ
 ENVIRON_CURRENT := $(ENVIRON_DIR)/current
+BOOTSTRAP := $(CURDIR)/bootstrap.sh
 
 .PHONY: help
 help:
@@ -18,7 +19,7 @@ help:
 
 .PHONY: env
 env:
-	sh bootstrap.sh
+	sh $(BOOTSTRAP)
 	pip install -r $(REQUIREMENTS) --find-links=$(WHEEL_DIR)
 
 .PHONY: use

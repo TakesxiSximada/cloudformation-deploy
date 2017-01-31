@@ -5,6 +5,8 @@ STACK := `cat environ/current/stack`
 TEMPLATE := file://templates/vpc.yml
 CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 
+REQUIREMENTS := $(CURDIR)/requirements.txt
+WHEEL_DIR := $(CURDIR)/wheelhouse
 
 .PHONY: help
 help:
@@ -15,7 +17,7 @@ help:
 .PHONY: env
 env:
 	sh bootstrap.sh
-	pip install -r $(CURDIR)/wheelhouse/requirements.txt --find-links=$(CURDIR)/wheelhouse
+	pip install -r $(REQUIREMENTS) --find-links=$(WHEEL_DIR)
 
 .PHONY: use
 use:

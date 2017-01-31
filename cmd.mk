@@ -7,6 +7,8 @@ CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 
 REQUIREMENTS := $(CURDIR)/requirements.txt
 WHEEL_DIR := $(CURDIR)/wheelhouse
+ENVIRON_DIR := $(CURDIR)/environ
+ENVIRON_CURRENT := $(ENVIRON_DIR)/current
 
 .PHONY: help
 help:
@@ -22,7 +24,7 @@ env:
 .PHONY: use
 use:
 	@## environ=staging
-	ln -sf $(CURDIR)/environ/$(environ) $(CURDIR)/environ/current
+	ln -sf $(ENVIRON_DIR)/$(environ) $(ENVIRON_CURRENT)
 
 
 .PHONY: validate

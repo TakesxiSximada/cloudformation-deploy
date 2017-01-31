@@ -3,16 +3,18 @@ Metadata:
   License: Apache-2.0
 Description: ''
 Resources:
-  MainVPC:
-    Type: "AWS::EC2::VPC"
-    Properties:
-      CidrBlock: 10.0.0.0/24
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
-      InstanceTenancy: default
-      Tags:
-        - Key: Name
-          Value: example
+
+
+  # MainVPC:
+  #   Type: "AWS::EC2::VPC"
+  #   Properties:
+  #     CidrBlock: 10.0.0.0/24
+  #     EnableDnsSupport: true
+  #     EnableDnsHostnames: true
+  #     InstanceTenancy: default
+  #     Tags:
+  #       - Key: Name
+  #         Value: example
 
   # MainInternetGateway:
   #   Type: "AWS::EC2::InternetGateway"

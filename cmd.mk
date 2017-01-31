@@ -14,7 +14,7 @@ help:
 .PHONY: env
 env:
 	sh bootstrap.sh
-	pip install awscli
+	pip install -r $(CURDIR)/wheelhouse/requirements.txt --find-links=$(CURDIR)/wheelhouse
 
 
 .PHONY: create

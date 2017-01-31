@@ -1,6 +1,6 @@
 .DEFAULT_GOAL_NAME := help
 
-CLOUDFORMATION := aws cloudformation
+CLOUDFORMATION := aws cloudformation --region=`cat environ/current/region`
 STACK := `cat environ/current/stack`
 TEMPLATE := file://template.yml
 CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`

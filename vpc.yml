@@ -5,3 +5,5 @@ Description: ''
 Resources:
   FISH:
     Type: AWS::S3::Bucket
+  FISH2:
+    Type: AWS::S3::Bucket

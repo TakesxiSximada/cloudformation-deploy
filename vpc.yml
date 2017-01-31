@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata:
+  License: Apache-2.0
+Description: ''
+Resources:
+  FISH:
+    Type: AWS::S3::Bucket
+  FISH5:
+    Type: AWS::S3::Bucket
+  FISH3:
+    Type: AWS::S3::Bucket

@@ -5,10 +5,6 @@
       "Type": "AWS::S3::Bucket",
       "Properties": {}
     },
-    "FISH2": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {}
-    },
     "FISH3": {
       "Type": "AWS::S3::Bucket",
       "Properties": {}

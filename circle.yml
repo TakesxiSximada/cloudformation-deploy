@@ -22,7 +22,7 @@ dependencies:
 #     - ~/bin
 test:
   override:
-    - aws cloudformation validate-stack --template-body file://vpc.yml
+    - aws cloudformation validate-template --template-body file://vpc.yml
 
 
 deployment:

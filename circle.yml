@@ -22,7 +22,8 @@ dependencies:
 #     - ~/bin
 test:
   override:
-    - echo OK
+    - aws cloudformation validate-stack --template-body file://a.json
+
 
 deployment:
   production:

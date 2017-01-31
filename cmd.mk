@@ -17,6 +17,11 @@ env:
 	sh bootstrap.sh
 	pip install -r $(CURDIR)/wheelhouse/requirements.txt --find-links=$(CURDIR)/wheelhouse
 
+.PHONY: use
+use:
+	@## environ=staging
+	ln -sf $(CURDIR)/environ/$(environ) $(CURDIR)/environ/current
+
 
 .PHONY: validate
 validate:

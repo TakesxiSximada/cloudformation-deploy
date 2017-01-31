@@ -11,10 +11,12 @@ deployment:
   production:
     branch: master
     commands:
+      - make use environ=production
       - make change-set
       - make apply
 
   staging:
     branch: staging
     commands:
+      - make use environ=staging
       - make update

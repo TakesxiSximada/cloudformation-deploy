@@ -5,6 +5,7 @@ STACK := Example
 TEMPLATE := file://vpc.yml
 CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 
+
 .PHONY: help
 help:
 	@# Display usage
@@ -23,22 +24,18 @@ validate:
 	$(CLOUDFORMATION) validate-template --template-body $(TEMPLATE)
 
 
-.PHONY: validate
-validate:
-	@# テンプレートを検証
-	$(CLOUDFORMATION) validate-template --template-body $(TEMPLATE)
-
-
 .PHONY: change-set
 change-set:
 	@# change setを作成
 	$(CLOUDFORMATION) create-change-set --stack-name $(STACK) --template-body $(TEMPLATE) --change-set-name=$(CHANGE_SET_NAME)
 	$(CLOUDFORMATION) describe-change-set --stack-name $(STACK) --change-set-name=$(CHANGE_SET_NAME)
 
+
 .PHONY: apply
 apply:
 	@# change setを適応
 	$(CLOUDFORMATION) execute-change-set --stack-name $(STACK) --change-set-name=$(CHANGE_SET_NAME)
+
 
 .PHONY: update
 update:

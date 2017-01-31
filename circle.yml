@@ -1,38 +1,20 @@
-machine:
-  environment:
-    TERRAFORM_VER: 0.7.0
-
 dependencies:
   pre:
     - sh bootstrap.sh
     - make env
 
-
-# dependencies:
-#   override:
-#     - |
-#       if [[ ! -f ~/bin/terraform ]]; then
-#         mkdir -p tmp
-#         cd tmp
-#         curl -L "https://releases.hashicorp.com/terraform/${TERRAFORM_VER}/terraform_${TERRAFORM_VER}_linux_amd64.zip" -o terraform.zip
-#         unzip *.zip
-#         mv terraform ~/bin/
-#       fi
-#   cache_directories:
-#     - ~/bin
 test:
   override:
-    - aws cloudformation validate-template --template-body file://vpc.yml
-
+    - make varidate
 
 deployment:
   production:
     branch: master
     commands:
-      - aws cloudformation create-change-set --stack-name cloudformation-deploy --template-body file://vpc.yml --change-set-name=commit-`git show --quiet --pretty=format:"%H"`
-      - aws cloudformation describe-change-set --stack-name cloudformation-deploy --change-set-name=commit-`git show --quiet --pretty=format:"%H"`
-      - aws cloudformation execute-change-set --stack-name cloudformation-deploy --change-set-name=commit-`git show --quiet --pretty=format:"%H"`
+      - make change-set
+      - make apply
+
   staging:
     branch: staging
     commands:
-      - aws cloudformation update-stack --stack-name cloudformation-deploy --template-body file://vpc.yml
+      - make update

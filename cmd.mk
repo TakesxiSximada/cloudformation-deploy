@@ -2,8 +2,8 @@
 
 CLOUDFORMATION := aws cloudformation
 STACK := Example
-TEMPLATE := file://template.yml
-
+TEMPLATE := file://vpc.yml
+CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 
 .PHONY: help
 help:
@@ -17,25 +17,30 @@ env:
 	pip install -r $(CURDIR)/wheelhouse/requirements.txt --find-links=$(CURDIR)/wheelhouse
 
 
-.PHONY: create
-create: validate
-	@# 更新
-	$(CLOUDFORMATION) create-stack --stack-name $(STACK) --template-body $(TEMPLATE) --role-arn $AWS_ROLE_ARN
-
-
-.PHONY: update
-update: validate
-	@# 更新
-	$(CLOUDFORMATION) update-stack --stack-name $(STACK) --template-body $(TEMPLATE)
-
-
-.PHONY: delete
-delete:
-	@# 削除 (全てのリソースが削除されます)
-	$(CLOUDFORMATION) delete-stack --stack-name $(STACK)
+.PHONY: validate
+validate:
+	@# テンプレートを検証
+	$(CLOUDFORMATION) validate-template --template-body $(TEMPLATE)
 
 
 .PHONY: validate
 validate:
 	@# テンプレートを検証
 	$(CLOUDFORMATION) validate-template --template-body $(TEMPLATE)
+
+
+.PHONY: change-set
+change-set:
+	@# change setを作成
+	$(CLOUDFORMATION) create-change-set --stack-name $(STACK) --template-body $(TEMPLATE) --change-set-name=$(CHANGE_SET_NAME)
+	$(CLOUDFORMATION) describe-change-set --stack-name $(STACK) --change-set-name=$(CHANGE_SET_NAME)
+
+.PHONY: apply
+apply:
+	@# change setを適応
+	$(CLOUDFORMATION) execute-change-set --stack-name $(STACK) --change-set-name=$(CHANGE_SET_NAME)
+
+.PHONY: update
+update:
+	@# stack更新
+	$(CLOUDFORMATION) update-stack --stack-name $(STACK) --template-body $(TEMPLATE)

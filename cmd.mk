@@ -2,7 +2,7 @@
 
 CLOUDFORMATION := aws cloudformation
 STACK := `cat environ/current/stack`
-TEMPLATE := file://templates/vpc.yml
+TEMPLATE := file://template.yml
 CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 
 REQUIREMENTS := $(CURDIR)/requirements.txt

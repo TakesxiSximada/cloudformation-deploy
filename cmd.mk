@@ -1,7 +1,7 @@
 .DEFAULT_GOAL_NAME := help
 
 CLOUDFORMATION := aws cloudformation
-STACK := Example
+STACK := cloudformation-deploy
 TEMPLATE := file://vpc.yml
 CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 

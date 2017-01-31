@@ -2,7 +2,7 @@
 
 CLOUDFORMATION := aws cloudformation
 STACK := cloudformation-deploy
-TEMPLATE := file://vpc.yml
+TEMPLATE := file://templates/vpc.yml
 CHANGE_SET_NAME := commit-`git show --quiet --pretty=format:"%H"`
 
 

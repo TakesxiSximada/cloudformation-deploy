@@ -14,8 +14,7 @@ help:
 .PHONY: env
 env:
 	sh bootstrap.sh
-	pip install pip -U --find-links=$(CURDIR)/wheelhouse --no-index
-	pip install -r $(CURDIR)/wheelhouse/requirements.txt --find-links=$(CURDIR)/wheelhouse --no-index
+	pip install -r $(CURDIR)/wheelhouse/requirements.txt --find-links=$(CURDIR)/wheelhouse
 
 .PHONY: create
 create: validate

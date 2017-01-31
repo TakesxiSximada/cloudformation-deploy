@@ -5,7 +5,7 @@ dependencies:
 
 test:
   override:
-    - make varidate
+    - make validate
 
 deployment:
   production:

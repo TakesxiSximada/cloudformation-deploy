@@ -7,6 +7,7 @@ dependencies:
     - sh bootstrap.sh
     - make env
 
+
 # dependencies:
 #   override:
 #     - |
@@ -19,9 +20,9 @@ dependencies:
 #       fi
 #   cache_directories:
 #     - ~/bin
-# test:
-#   override:
-#     - terraform plan
+test:
+  override:
+    - echo OK
 
 deployment:
   production:

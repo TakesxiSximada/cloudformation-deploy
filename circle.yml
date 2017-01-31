@@ -4,8 +4,8 @@ machine:
 
 dependencies:
   pre:
-    - sudo pip install awscli
-    - make -f cmd.mk env
+    - sh bootstrap.sh
+    - make env
 
 # dependencies:
 #   override:
@@ -27,4 +27,4 @@ deployment:
   production:
     branch: master
     commands:
-      - make update
+      - aws --profile cloudformation-deploy --region us-east-1 cloudformation update-stack --stack-name cloudformation-deploy --template-body file://a.json

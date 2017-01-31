@@ -13,7 +13,8 @@ help:
 
 .PHONY: env
 env:
-	ln -sf cmd.mk Makefile
+	sh bootstrap.sh
+	pip install awscli
 
 
 .PHONY: create

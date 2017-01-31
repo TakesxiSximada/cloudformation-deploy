@@ -1,7 +1,15 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Resources": {
-    "S3B4KHTH": {
+    "FISH": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {}
+    },
+    "FISH2": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {}
+    },
+    "FISH3": {
       "Type": "AWS::S3::Bucket",
       "Properties": {}
     }

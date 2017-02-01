@@ -2,10 +2,23 @@ AWSTemplateFormatVersion: '2010-09-09'
 Metadata:
   License: Apache-2.0
 Description: ''
+Mappings:
+  RegionMap:
+    us-east-1:
+      PrimaryAZ: us-east-1a
+      ResourceName: cloudformation-deploy
+
 Resources:
-  FISH:
+  TemporaryBucket:
     Type: AWS::S3::Bucket
-  FISH2:
-    Type: AWS::S3::Bucket
-  FISH4:
-    Type: AWS::S3::Bucket
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSuport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: !FindInMap [RegionMap, !Ref "AWS::Region", ResourceName]

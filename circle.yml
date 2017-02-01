@@ -2,6 +2,7 @@ dependencies:
   pre:
     - sh bootstrap.sh
     - make env
+    - make use environ=staging
 
 test:
   override:

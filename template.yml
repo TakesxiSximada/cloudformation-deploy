@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Metadata:
   License: Apache-2.0
-Description: ''
+Description: 'http://docs.aws.amazon.com/ja_jp/AmazonVPC/latest/UserGuide/VPC_Scenario1.html'
 Mappings:
   RegionMap:
     us-east-1:
@@ -19,6 +19,66 @@ Resources:
       EnableDnsSuport: true
       EnableDnsHostnames: true
       InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: !FindInMap [RegionMap, !Ref "AWS::Region", ResourceName]
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    DependsOn: InternetGateway
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PrimarySubnet:
+    Type: AWS::EC2::Subnet
+    Dependson: VPC
+    Properties:
+      VpcId: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !FindMap [RegionMap, !Ref AWS::Region, PrimaryAZ]
+
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: PrimarySubnet
+    Properties:
+      VpcId: !Ref VPC
+
+  RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn: RouteTable
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref PrimarySubnet
+
+  InternetRoute:
+    Type: AWS::EC2::Route
+    DependsOn:
+      - VPC
+      - InternetGateway
+    Properties:
+      RouteTableId: !Ref RouteTable
+      GatewayId: !Ref InternetGateway
+      DestinationCidrBlock: 0.0.0.0/0
+
+
+  CommonSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: CommonSG
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: "22"
+          ToPort: "22"
+          IpProtocol: tcp
       Tags:
         - Key: Name
           Value: !FindInMap [RegionMap, !Ref "AWS::Region", ResourceName]

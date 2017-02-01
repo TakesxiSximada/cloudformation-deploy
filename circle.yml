@@ -21,3 +21,9 @@ deployment:
     commands:
       - make use environ=staging
       - make update
+
+  destroy:
+    branch: destroy
+    commands:
+      - make use environ=staging
+      - make destroy

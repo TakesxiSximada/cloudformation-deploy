@@ -5,7 +5,7 @@ dependencies:
 
 test:
   override:
-    - make validate
+    - make validate-all
 
 deployment:
   production:

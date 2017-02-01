@@ -11,6 +11,11 @@ ENVIRON_DIR := $(CURDIR)/environ
 ENVIRON_CURRENT := $(ENVIRON_DIR)/current
 BOOTSTRAP := $(CURDIR)/bootstrap.sh
 
+
+DESTROY_TEMPLATE = file://destroy.yml
+DESTROY_STACK = `cat environ/staging/stack`
+
+
 .PHONY: help
 help:
 	@# Display usage
@@ -21,6 +26,7 @@ help:
 env:
 	sh $(BOOTSTRAP)
 	pip install -r $(REQUIREMENTS) --find-links=$(WHEEL_DIR)
+
 
 .PHONY: use
 use:
@@ -51,3 +57,9 @@ apply:
 update:
 	@# stack更新
 	$(CLOUDFORMATION) update-stack --stack-name $(STACK) --template-body $(TEMPLATE)
+
+
+.PHONY: destroy
+destroy:
+	@# stackのリソース停止
+	$(CLOUDFORMATION) update-stack --stack-name $(DESTROY_STACK) --template-body $(DESTROY_TEMPLATE)

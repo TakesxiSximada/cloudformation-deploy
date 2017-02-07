@@ -56,7 +56,7 @@ apply:
 .PHONY: update
 update:
 	@# stack更新
-	$(CLOUDFORMATION) update-stack --stack-name $(STACK) --template-body $(TEMPLATE)
+	$(CLOUDFORMATION) update-stack --stack-name $(STACK) --capabilities CAPABILITY_NAMED_IAM --template-body $(TEMPLATE)
 
 
 .PHONY: destroy
